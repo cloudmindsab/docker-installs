@@ -1,10 +1,10 @@
-# Docker installs (automate docker installs on ubuntu and debian hosts)
+# Docker installs (automate docker installs on linux based hosts)
 
 Automate Docker Host/Agent installations
 
 ## Reason for Making this Script
 
-I got tired of running individual commands all the time, so I created some scripts to make this very easy. 
+I got tired of running individual commands all the time, so I created some scripts to make this very easy.  
 
 ## Using this script
 
@@ -29,9 +29,9 @@ Save with CTRL + O, then Enter to confirm, and exit the nano editor with CTRL + 
 
 ## Prompts from the script
 
-First, you'll be prompted to select the number for your OS / Distro.  Currently I support RaspbianOS (latest), CentOS 7 and 8, Debian 10 and 11, Ubuntu 18.04, 20.04, 22.04, 23.05, Arch Linux, and Open Suse (tested on Leap 15.4). 
+First, you'll be prompted to select the number for your OS / Distro.  Currently I support RaspbianOS (latest), CentOS 7 and 8, Debian 10 and 11, Ubuntu 18.04, 20.04, 22.04, 23.05, Arch Linux, and Open Suse (tested on Leap 15.4).  
 
-Next, you'll be asked to answer "y" to any of the four software packages you'd like to install. 
+Next, you'll be asked to answer "y" to any of the four software packages you'd like to install.  
 
 - Docker-CE (you'll need this for the others to work)
 - Docker-Compose (you'll need this for any of the applications to start properly)
@@ -63,10 +63,10 @@ Before prompting to install Docker or Docker-Compose, I do try to see if you alr
 
 ## Contributing
 
-If you find issues, please let me know. I'm always open to new contributors helping me add Distro support, more software packages, etc.  Just clone the project and make a pull request with any changes you add. 
+If you find issues, please let me know. I'm always open to new contributors helping me add Distro support, more software packages, etc.  Just clone the project and make a pull request with any changes you add.
 
 ## Licensing
 
 My script is offered without warranty against defect, and is free for you to use any way / time you want.  You may modify it in any way you see fit.  Please see the individual project pages of the software packages for their licensing.
 
-##### //Nicklas @ CoudMinds ..
+### //Nicklas @ CoudMinds
