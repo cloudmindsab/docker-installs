@@ -58,8 +58,6 @@ Before prompting to install Docker or Docker-Compose, I do try to see if you alr
 ## Recent changes
 
 - Added option for Raspbian install with Arm64 Chips.
-- Added Remotely as an application option
-- Added Guacamole as an application option
 
 ## Contributing
 
