@@ -438,6 +438,21 @@ startInstall() {
     # move to home directory of user
     cd
 
+    echo "##################################################"
+    echo "######      Creating a Folder Structure    #######"
+    echo "##################################################"
+
+    # move to home directory of user
+    cd
+    mkdir -p docker/prod
+    mkdir -p docker/prod/_scripts
+    mkdir -p docker/dev
+    mkdir -p docker/temp
+    mkdir -p docker/backup
+    mkdir -p docker/install
+    mkdir -p docker/restore
+    cd
+
     if [[ "$NPM" == [yY] ]]; then
         echo "##########################################"
         echo "###     Install NGinX Proxy Manager    ###"
@@ -446,10 +461,10 @@ startInstall() {
         # pull an nginx proxy manager docker-compose file from github
         echo "    1. Pulling a default NGinX Proxy Manager docker-compose.yml file."
 
-        mkdir -p docker/nginx-proxy-manager
-        cd docker/nginx-proxy-manager
+        mkdir -p docker/prod/npm
+        cd docker/prod/npm
 
-        curl https://gitlab.com/bmcgonag/docker_installs/-/raw/main/docker_compose.nginx_proxy_manager.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
+        curl https://raw.githubusercontent.com/cloudmindsab/docker-installs/main/docker_compose_nginx_proxy_manager.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
 
         echo "    2. Running the docker-compose.yml to install and start NGinX Proxy Manager"
         echo ""
@@ -486,9 +501,9 @@ startInstall() {
         echo "    3. You can find Portainer-CE files in ./docker/portainer"
 
         #sudo docker volume create portainer_data >> ~/docker-script-install.log 2>&1
-        mkdir -p docker/portainer/portainer_data
-        cd docker/portainer
-        curl https://gitlab.com/bmcgonag/docker_installs/-/raw/main/docker_compose_portainer_ce.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
+        mkdir -p docker/prod/portainer/portainer_data
+        cd docker/prod/portainer
+        curl https://raw.githubusercontent.com/cloudmindsab/docker-installs/main/docker_compose_portainer_ce.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
         echo ""
 
         if [[ "$OS" == "1" ]]; then
@@ -517,9 +532,9 @@ startInstall() {
         echo "    3. You can find Portainer-Agent files in ./docker/portainer"
 
         sudo docker volume create portainer_data
-        mkdir -p docker/portainer
-        cd docker/portainer
-        curl https://gitlab.com/bmcgonag/docker_installs/-/raw/main/docker_compose_portainer_ce_agent.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
+        mkdir -p docker/prod/portainer
+        cd docker/prod/portainer
+        curl https://raw.githubusercontent.com/cloudmindsab/docker-installs/main/docker_compose_portainer_ce_agent.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
         echo ""
 
         if [[ "$OS" == "1" ]]; then
@@ -538,119 +553,9 @@ startInstall() {
         cd
     fi
 
-    if [[ "$NAVID" == [yY] ]]; then
-        echo "###########################################"
-        echo "###        Installing Navidrome         ###"
-        echo "###########################################"
-        echo ""
-        echo "    1. Preparing to install Navidrome"
-
-        mkdir -p docker/navidrome
-        cd docker/navidrome
-
-        curl https://gitlab.com/bmcgonag/docker_installs/-/raw/main/docker_compose_navidrome.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
-
-        echo "    2. Running the docker-compose.yml to install and start Navidrome"
-        echo ""
-        echo ""
-
-        if [[ "$OS" == "1" ]]; then
-            docker-compose up -d
-        else
-            sudo docker-compose up -d
-        fi
-
-        echo "    3. You can find your Navidrome files in ./docker/navidrome"
-        echo ""
-        echo "    Navigate to your server hostname / IP address on port 4533 to setup"
-        echo "    your new Navidrome admin account."
-        echo ""
-        sleep 3s
-        cd
-    fi
-
-    if [[ "$REMOTELY" == [yY] ]]; then
-        echo "##########################################"
-        echo "###          Install Remotely          ###"
-        echo "##########################################"
-
-        # pull a remotely docker-compose file from gitlab
-        echo "    1. Pulling a default Remotely docker-compose.yml file."
-
-        mkdir -p docker/remotely
-        cd docker/remotely
-
-        curl https://gitlab.com/bmcgonag/docker_installs/-/raw/main/docker_compose_remotely.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
-
-        echo ""
-        echo ""
-        echo "    2. Running the docker-compose.yml to pull and start Remotely..."
-        echo ""
-
-        if [[ "$OS" == "1" ]]; then
-            docker-compose up -d
-        else
-            sudo docker-compose up -d
-        fi
-
-        echo "    3. You can find the Remotely folder at ~/docker/remotely..."
-        echo ""
-        echo "      Navigate to your server hostname / IP address on port 8188 to setup"
-        echo "      your new Remotely installation."
-        echo ""
-        echo "      You will likely want to create a reverse proxy entry in NGinX Proxy Manager"
-        echo "      for your new Remotely server.  If so, also make sure to set the"
-        echo "      'Require https' option in the Remotely Settings."
-        echo ""
-        echo ""
-        sleep 3s
-        cd
-    fi
-
-    if [[ "$GUAC" == [yY] ]]; then
-        echo "##########################################"
-        echo "###         Installing Guacamole       ###"
-        echo "##########################################"
-
-        # pull a guacamole docker-compose file from gitlab
-        echo "    1. Pulling a default Guacamole docker-compose.yml file."
-
-        mkdir -p docker/guacamole
-        cd docker/guacamole
-
-        curl https://gitlab.com/bmcgonag/docker_installs/-/raw/main/docker_compose_guacamole.yml -o docker-compose.yml >>~/docker-script-install.log 2>&1
-
-        echo ""
-        echo ""
-        echo "    2. Running the docker-compose.yml to pull and start Guacamole..."
-        echo ""
-
-        if [[ "$OS" == "1" ]]; then
-            docker-compose up -d
-        else
-            sudo docker-compose up -d
-        fi
-
-        echo "    3. You can find the Guacamole folder at ~/docker/guacamole..."
-        echo ""
-        echo "      You can now navigate in your browser to yoru server IP at"
-        echo "      port number 8080 to reach the Guacamole login page."
-        echo ""
-        echo "      Use the default credentials to loging the first time:"
-        echo "          username: guacadmin"
-        echo "          password: guacadmin"
-        echo ""
-        echo "      It is highly recommended that you create a new admin user, and"
-        echo "      delete / disable the default user."
-        echo ""
-        echo ""
-        sleep 3s
-        cd
-    fi
-
-    echo "All docker applications have been added to the docker network my-main-net"
+    echo "All docker applications have been added to the docker network public_hosting"
     echo ""
-    echo "If you add more docker applications to this server, make sure to add them to the my-main-net network."
+    echo "If you add more docker applications to this server, make sure to add them to the public_hosting network."
     echo "You can then use them by container name in NGinX Proxy Manager if so desired."
 
     exit 1
